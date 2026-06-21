@@ -19,18 +19,19 @@
 import setuptools
 
 REQUIREMENTS = [
-                "numpy>=2.0",
-                "sympy<=1.13",
-                "qiskit>=0.44.0",
-                "matplotlib>=3.5.1",
-                "scipy>=1.10.0",
-                "numba",
-                "networkx",
-                "tqdm",
-                "dill",
-                "psutil",
-                "jax==0.7.1",
-                "jaxlib==0.7.1"]
+    "numpy>=2.0",
+    "sympy<=1.13",
+    "qiskit>=0.44.0",
+    "matplotlib>=3.5.1",
+    "scipy>=1.10.0",
+    "numba",
+    "networkx",
+    "tqdm",
+    "dill",
+    "psutil",
+    "jax==0.7.1",
+    "jaxlib==0.7.1",
+]
 
 
 with open("README.md", "r", encoding="utf-8") as fh:

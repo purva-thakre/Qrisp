@@ -105,7 +105,6 @@ class JRangeIterator:
             return self.loop_index
 
         elif self.iteration == 2:
-
             qs = TracingQuantumSession.get_instance()
             created_qvs = set(list(qs.qv_list)) - set(self.iter_1_qvs)
             created_qvs = list(created_qvs)
@@ -125,7 +124,6 @@ class JRangeIterator:
             return self.loop_index
 
         elif self.iteration == 3:
-
             qs = TracingQuantumSession.get_instance()
             created_qvs = set(list(qs.get_instance().qv_list)) - set(self.iter_2_qvs)
             created_qvs = list(created_qvs)
@@ -396,9 +394,7 @@ def jrange(*args):
         )
 
     if len(args) not in (1, 2):
-        raise TypeError(
-            f"jrange takes 1 or 2 arguments ({len(args)} given)"
-        )
+        raise TypeError(f"jrange takes 1 or 2 arguments ({len(args)} given)")
 
     new_args = []
     if check_for_tracing_mode():
