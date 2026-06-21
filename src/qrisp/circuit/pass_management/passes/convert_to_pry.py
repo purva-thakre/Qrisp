@@ -1,12 +1,11 @@
-"""
-Convert single-qubit gates to PRY (Phased-RY) decomposition.
-"""
+"""Convert single-qubit gates to PRY (Phased-RY) decomposition."""
 
 from __future__ import annotations
 
 import numpy as np
+
+from qrisp.circuit.operation import ClControlledOperation, U3Gate
 from qrisp.circuit.pass_management.circuit_pass import CircuitPass
-from qrisp.circuit.operation import U3Gate, ClControlledOperation
 from qrisp.circuit.quantum_circuit import QuantumCircuit
 
 
@@ -17,8 +16,7 @@ class PRYGate(U3Gate):
 
 @CircuitPass
 def convert_to_pry(qc: QuantumCircuit) -> QuantumCircuit:
-    """
-    Convert single-qubit gates to PRY (Phased-RY) gate decomposition.
+    """Convert single-qubit gates to PRY (Phased-RY) gate decomposition.
 
     This pass converts arbitrary single-qubit gates to PRY gates, which are
     a specific form of U3 gates used in some quantum hardware implementations.
@@ -42,6 +40,7 @@ def convert_to_pry(qc: QuantumCircuit) -> QuantumCircuit:
     >>> pm = PassManager()
     >>> pm.add_pass(convert_to_pry)
     >>> transpiled_qc = pm.run(qc)
+
     """
     qc_new = qc.clearcopy()
 

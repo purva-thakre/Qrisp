@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -19,8 +18,8 @@
 import warnings
 
 import jax.numpy as jnp
-from jax._src.array import ArrayImpl
 from jax import jit
+from jax._src.array import ArrayImpl
 
 from qrisp.jasp.tracing_logic import check_for_tracing_mode
 from qrisp.misc.exceptions import QrispDeprecationWarning
@@ -59,7 +58,6 @@ class JRangeIterator:
 
     def __iter__(self):
         """Initialise the loop index and reset the iteration counter."""
-
         self.iteration = 0
 
         # We create the loop iteration index tracer
@@ -78,14 +76,12 @@ class JRangeIterator:
         opens the environment; the second closes it and opens a new one to
         detect created qubits and compute the loop semantics.
         """
-
         # The idea is now to trace two iterations to capture what values get
         # updated after each iteration.
         # We capture the loop semantics using the JIterationEnvironment.
         # The actual jax loop primitive is then compiled in
         # JIterationEnvironment.jcompile
         from qrisp.jasp import TracingQuantumSession
-        from qrisp import reset
 
         self.iteration += 1
         if self.iteration == 1:
@@ -136,8 +132,7 @@ class JRangeIterator:
 
 
 def jrange(*args):
-    """
-    Performs a loop with a dynamic bound. Similar to the Python native ``range``
+    """Performs a loop with a dynamic bound. Similar to the Python native ``range``
     with one or two arguments. If it receives just one argument, this value is
     interpreted as the stop value and the start value is assumed to be 0.
     Two arguments represent start and stop value.
@@ -168,7 +163,6 @@ def jrange(*args):
 
     Examples
     --------
-
     We construct a function that encodes an integer into an arbitrarily sized
     :ref:`QuantumVariable`:
 
@@ -383,7 +377,6 @@ def jrange(*args):
     higher nesting levels.
 
     """
-
     if len(args) == 3:
         warnings.warn(
             "DeprecationWarning: The step argument of jrange has been removed "
@@ -433,6 +426,7 @@ def make_tracer(x):
     ------
     Exception
         If the type of *x* is not supported.
+
     """
     if isinstance(x, bool):
         dtype = jnp.bool
@@ -463,6 +457,7 @@ def jlen(x):
     -------
     int
         ``len(x)`` if *x* is a list, otherwise ``x.size``.
+
     """
     if isinstance(x, list):
         return len(x)

@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -23,16 +22,15 @@ from collections.abc import Callable
 import numpy as np
 
 from qrisp.circuit.operation import Operation
-from qrisp.circuit.quantum_circuit import QuantumCircuit
 from qrisp.circuit.pass_management.circuit_pass import CircuitPass
+from qrisp.circuit.quantum_circuit import QuantumCircuit
 
 
 def decompose(
     level: int | float = np.inf,
     decompose_predicate: Callable[[Operation], bool] | None = None,
 ) -> Callable[[QuantumCircuit], QuantumCircuit]:
-    """
-    Create a pass that recursively decomposes synthesized gates.
+    """Create a pass that recursively decomposes synthesized gates.
 
     Every gate that has a ``.definition`` (a sub-circuit) is dissolved into
     its constituent elementary gates up to the specified recursion *level*.
@@ -100,6 +98,7 @@ def decompose(
 
         >>> pm3 = PassManager()
         >>> pm3 += decompose(level=1)
+
     """
 
     @CircuitPass

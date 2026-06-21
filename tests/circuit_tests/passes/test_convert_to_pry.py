@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -16,13 +15,13 @@
 ********************************************************************************
 """
 
-from qrisp import QuantumCircuit, Qubit, U3Gate, PRYGate, convert_to_pry
 import numpy as np
+
+from qrisp import PRYGate, QuantumCircuit, Qubit, U3Gate, convert_to_pry
 
 
 def test_convert_to_pry():
     """Test the convert_to_pry function with various quantum circuits."""
-
     print("Testing convert_to_pry...")
 
     # Test case 1: Simple single-qubit gate conversion
@@ -46,7 +45,7 @@ def test_convert_to_pry():
     converted_ops = [instr.op for instr in qc_converted.data]
     pry_ops = [op for op in converted_ops if isinstance(op, PRYGate)]
 
-    assert len(pry_ops)
+    assert pry_ops
     for op in converted_ops:
         if isinstance(op, U3Gate) and not isinstance(op, PRYGate):
             assert False, "Left non-converted U3 Gate"

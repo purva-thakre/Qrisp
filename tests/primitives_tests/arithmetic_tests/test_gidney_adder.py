@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -18,6 +17,7 @@
 
 import numpy as np
 import pytest
+
 from qrisp import (
     BigInteger,
     QuantumBool,
@@ -292,7 +292,7 @@ def test_gidney_adder_with_carry_options(a_spec, a_val, b_bits, b_val, c_in_val,
     ],
 )
 def test_gidney_adder_with_control(a_spec, a_val, b_bits, b_val, ctrl_on, expected_b):
-    """Verify controlled addition only fires when :math:`ctrl=\ket{1}`."""
+    r"""Verify controlled addition only fires when :math:`ctrl=\ket{1}`."""
     kind, n = a_spec
     if kind == "qf":
         a = QuantumFloat(n)
@@ -476,7 +476,7 @@ def test_gidney_adder_inputs_unmodified_size():
     ],
 )
 def test_gidney_adder_single_qubit(kind, a_val, b_val, use_cin, use_cout, expected_b, expected_cout):
-    """n == 1 edge case: carry chain is skipped via control(n > 1)."""
+    """N == 1 edge case: carry chain is skipped via control(n > 1)."""
     if kind == "classical":
         a = a_val
     else:
@@ -531,7 +531,7 @@ def test_gidney_adder_classical_a_dynamic(n_bits, a_val, b_val, spec, expected):
 
 
 def test_gidney_adder_single_qubit_no_ancilla_leak():
-    """n == 1: QuantumVariable(0) should not leak."""
+    """N == 1: QuantumVariable(0) should not leak."""
     b = QuantumFloat(1)
     b[:] = 0
     initial_ids = {id(b)}
@@ -1153,7 +1153,8 @@ def test_gidney_adder_jaspr_mode():
 
 def test_gidney_adder_dynamic_mode_with_control():
     """Verify gidney_adder is triggered when the control qubit is in the |1> state
-    in dynamic mode."""
+    in dynamic mode.
+    """
 
     @boolean_simulation
     def main(N, L, j, k):

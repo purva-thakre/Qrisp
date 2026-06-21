@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -19,14 +18,13 @@
 from functools import lru_cache
 
 import numpy as np
+from jax import make_jaxpr
+from jax.extend.core import ClosedJaxpr, Jaxpr, JaxprEqn, Var
+from jax.lax import add_p, sub_p, while_loop
 from sympy import lambdify
 
-from jax import make_jaxpr
-from jax.extend.core import JaxprEqn, Var, ClosedJaxpr, Jaxpr
-from jax.lax import add_p, sub_p, while_loop
-
-from qrisp.jasp.primitives import AbstractQuantumState, quantum_gate_p, greek_letters
 from qrisp.jasp.interpreter_tools import eval_jaxpr, extract_invalues, insert_outvalues
+from qrisp.jasp.primitives import AbstractQuantumState, greek_letters, quantum_gate_p
 
 
 def copy_jaxpr_eqn(eqn):
@@ -45,8 +43,7 @@ qc_var_count = np.zeros(1, dtype=np.int64)
 
 
 def invert_eqn(eqn):
-    """
-    Receives and equation that describes either an operation or a pjit primitive
+    """Receives and equation that describes either an operation or a pjit primitive
     and returns an equation that describes the inverse.
 
     Parameters
@@ -60,7 +57,6 @@ def invert_eqn(eqn):
         The equation with inverted operation.
 
     """
-
     if eqn.primitive.name == "jit":
         params = dict(eqn.params)
         params["jaxpr"] = eqn.params["jaxpr"].inverse()
@@ -110,8 +106,7 @@ def invert_eqn(eqn):
 
 @lru_cache(int(1e5))
 def invert_jaspr(jaspr):
-    """
-    Takes a Jaspr and returns a Jaspr, which performs the inverted quantum operation
+    """Takes a Jaspr and returns a Jaspr, which performs the inverted quantum operation
 
     Parameters
     ----------
@@ -124,7 +119,6 @@ def invert_jaspr(jaspr):
         The inverted/daggered Jaspr.
 
     """
-
     # Flatten all environments in the jaspr
     jaspr = jaspr.flatten_environments()
     # We separate the equations into classes where one executes Operations and

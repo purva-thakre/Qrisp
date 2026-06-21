@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -16,14 +15,14 @@
 ********************************************************************************
 """
 
-from qrisp.circuit import PRYGate
-from qrisp import U3Gate
 import numpy as np
+
+from qrisp import U3Gate
+from qrisp.circuit import PRYGate
 
 
 def test_PRYGate():
     """Test the PRYGate class functionality."""
-
     print("Testing PRYGate...")
 
     # Test case 1: Basic PRYGate creation

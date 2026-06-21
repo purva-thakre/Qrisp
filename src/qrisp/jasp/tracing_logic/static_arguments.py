@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -40,10 +39,6 @@ class StaticArg:
 def unflatten_qv(aux_data, children):
     # return the tracers and auxiliary data (structure of the object)
     return aux_data.val
-
-
-import types
-from jax import tree_util
 
 
 def unflatten_function(aux_data, children):

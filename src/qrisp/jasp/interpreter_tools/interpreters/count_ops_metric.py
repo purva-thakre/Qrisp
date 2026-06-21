@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -40,8 +39,7 @@ from qrisp.jasp.primitives import (
 
 
 class CountOpsMetric(BaseMetric):
-    """
-    A metric implementation that counts quantum operations in a Jaspr.
+    """A metric implementation that counts quantum operations in a Jaspr.
 
     Parameters
     ----------
@@ -55,7 +53,6 @@ class CountOpsMetric(BaseMetric):
 
     def __init__(self, meas_behavior: Callable, profiling_dic: Dict[str, int]) -> None:
         """Initialize the CountOpsMetric."""
-
         super().__init__(meas_behavior=meas_behavior)
 
         self._profiling_dic: Dict[str, int] = profiling_dic
@@ -211,7 +208,6 @@ class CountOpsMetric(BaseMetric):
 
 def extract_count_ops(res: Tuple, jaspr: Jaspr, profiling_dic: dict) -> dict:
     """Extract depth from the profiling result."""
-
     if len(jaspr.outvars) > 1:
         profiling_array = res[-1][0]
     else:
@@ -228,8 +224,7 @@ def extract_count_ops(res: Tuple, jaspr: Jaspr, profiling_dic: dict) -> dict:
 
 @lru_cache(int(1e5))
 def get_count_ops_profiler(jaspr: Jaspr, meas_behavior: Callable, callback_threshold=None) -> Tuple[Callable, dict]:
-    """
-    Build a count operations profiling computer for a given Jaspr.
+    """Build a count operations profiling computer for a given Jaspr.
 
     Parameters
     ----------
@@ -251,7 +246,6 @@ def get_count_ops_profiler(jaspr: Jaspr, meas_behavior: Callable, callback_thres
         A count operations profiler function and the profiling dictionary.
 
     """
-
     quantum_operations = get_quantum_operations(jaspr)
     profiling_dic = {quantum_operations[i]: i for i in range(len(quantum_operations))}
 

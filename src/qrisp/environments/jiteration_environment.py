@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -16,12 +15,11 @@
 ********************************************************************************
 """
 
-from jax.lax import while_loop
-from jax.extend.core import Literal
 from jax.core import ShapedArray
+from jax.extend.core import Literal
+from jax.lax import while_loop
 
 from qrisp.environments import QuantumEnvironment
-
 
 # The idea behind this equation compiler is the following:
 # The jrange feature executes 2 iterations of the loop to capture

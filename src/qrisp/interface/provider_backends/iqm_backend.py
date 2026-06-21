@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -33,8 +32,7 @@ def IQMBackend(
     use_metrics: bool = False,
     use_timeslot: bool = False,
 ):
-    """
-    This function creates a :ref:`BatchedBackend` for executing circuits on IQM hardware.
+    """This function creates a :ref:`BatchedBackend` for executing circuits on IQM hardware.
 
     .. deprecated:: 0.8
 
@@ -66,7 +64,6 @@ def IQMBackend(
 
     Examples
     --------
-
     We evaluate a :ref:`QuantumFloat` multiplication on the 20-qubit IQM Garnet.
 
     >>> from qrisp.interface import IQMBackend
@@ -126,7 +123,6 @@ def IQMBackend(
         meas_res = qc.run(shots = 10000, backend = custom_transpiled_garnet)
 
     """
-
     warnings.warn(
         "DeprecationWarning: The IQMBackend function will be removed from qrisp in a future release.",
         QrispDeprecationWarning,

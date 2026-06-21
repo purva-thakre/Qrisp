@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -18,7 +17,6 @@
 
 from qrisp import *
 from qrisp.jasp import *
-from jax import make_jaxpr
 
 
 def test_rus():
@@ -178,4 +176,4 @@ def test_rus():
     assert len(res_dict) == len(expected_res)
 
     for k, v in res_dict.items():
-        assert abs(expected_res[k] - res_dict[k]) < 1e-3
+        assert abs(expected_res[k] - v) < 1e-3

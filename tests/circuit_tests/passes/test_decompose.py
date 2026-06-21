@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -16,8 +15,7 @@
 ********************************************************************************
 """
 
-import pytest
-from qrisp import QuantumCircuit, PassManager, decompose
+from qrisp import PassManager, QuantumCircuit, decompose
 
 
 class TestDecomposePass:
@@ -91,7 +89,8 @@ class TestDecomposePass:
 
     def test_level_one_unwraps_one_layer(self):
         """Level 1 unwraps the MCX definition but ``gray multi cx``
-        is not decomposed further at this recursion depth."""
+        is not decomposed further at this recursion depth.
+        """
         qc = self._make_mcx_circuit(n_ctrl=2)
         pm = PassManager()
         pm += decompose(level=1)
@@ -199,8 +198,6 @@ class TestDecomposePass:
 
     def test_unitary_equivalence_default_decompose(self):
         """Decomposing with default settings preserves the unitary."""
-        from qrisp import decompose as dec
-
         qc = QuantumCircuit(3)
         qc.mcx([0, 1], 2)
         qc.h(2)
@@ -212,8 +209,6 @@ class TestDecomposePass:
 
     def test_unitary_equivalence_with_predicate(self):
         """Selective decomposition via predicate preserves the unitary."""
-        from qrisp import decompose as dec
-
         qc = QuantumCircuit(3)
         qc.mcx([0, 1], 2)
         qc.h(0)

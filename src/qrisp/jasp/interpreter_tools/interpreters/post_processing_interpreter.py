@@ -1,5 +1,4 @@
-"""
-Post-processing extraction for Jaspr objects.
+"""Post-processing extraction for Jaspr objects.
 
 This module provides functionality to extract the post-processing logic from a Jaspr object
 and convert it into a function that can be applied to measurement results from a
@@ -22,18 +21,17 @@ to avoid manually building slice/squeeze equations.
 from functools import lru_cache
 
 from qrisp.jasp.interpreter_tools.abstract_interpreter import (
-    extract_invalues,
-    insert_outvalues,
+    ContextDict,
     eval_jaxpr,
     eval_jaxpr_with_context_dic,
-    ContextDict,
+    extract_invalues,
+    insert_outvalues,
 )
 
 
 @lru_cache(maxsize=int(1e5))
 def get_post_processing_evaluator(jaxpr):
-    """
-    Get a cached evaluator for a jaxpr.
+    """Get a cached evaluator for a jaxpr.
 
     This function is LRU cached so that identical jaxprs return the same
     function instance. This is crucial for compilation efficiency: when the
@@ -49,6 +47,7 @@ def get_post_processing_evaluator(jaxpr):
     -------
     callable
         A function that evaluates the jaxpr using the post-processing evaluator.
+
     """
 
     # We return a function that will use the post-processing evaluator
@@ -61,8 +60,7 @@ def get_post_processing_evaluator(jaxpr):
 
 
 def extract_post_processing(jaspr, *args):
-    """
-    Extracts the post-processing logic from a Jaspr object and returns a function
+    """Extracts the post-processing logic from a Jaspr object and returns a function
     that performs the post-processing.
 
     Uses a custom equation evaluator that intercepts measurement operations and
@@ -88,7 +86,6 @@ def extract_post_processing(jaspr, *args):
 
     Examples
     --------
-
     ::
 
         from qrisp import *
@@ -112,13 +109,14 @@ def extract_post_processing(jaspr, *args):
         result = post_proc(jnp.array([False, True]))
 
     """
+    import jax.numpy as jnp
     from jax.extend.core import ClosedJaxpr
+
     from qrisp.jasp.primitives import (
         AbstractQuantumState,
-        QuantumPrimitive,
         AbstractQubitArray,
+        QuantumPrimitive,
     )
-    import jax.numpy as jnp
 
     # Get the inner jaxpr
     if isinstance(jaspr.jaxpr, ClosedJaxpr):
@@ -422,8 +420,7 @@ def extract_post_processing(jaspr, *args):
 
     # Return function that evaluates with custom evaluator
     def post_processing_func(measurement_results):
-        """
-        Post-processing function that takes measurement results.
+        """Post-processing function that takes measurement results.
 
         Parameters
         ----------
@@ -435,6 +432,7 @@ def extract_post_processing(jaspr, *args):
         -------
         tuple or single value
             The post-processed results.
+
         """
         # Convert bitstring to JAX array if it's a string
         if isinstance(measurement_results, str):

@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -19,11 +18,12 @@
 
 import jax.numpy as jnp
 import numpy as np
+
 from qrisp.circuit import Qubit
-from qrisp.core import QuantumVariable, x, cx, mcx
-from qrisp.qtypes import QuantumBool
+from qrisp.core import QuantumVariable, cx, mcx, x
 from qrisp.environments import control, custom_control
-from qrisp.jasp import jrange, jlen, DynamicQubitArray, check_for_tracing_mode
+from qrisp.jasp import DynamicQubitArray, check_for_tracing_mode, jlen, jrange
+from qrisp.qtypes import QuantumBool
 
 
 def _validate_gidney_adder_inputs(a, b):
@@ -38,6 +38,7 @@ def _validate_gidney_adder_inputs(a, b):
     ------
     ValueError
         If the pair is not classical-quantum or quantum-quantum.
+
     """
     b_is_quantum = isinstance(b, (QuantumVariable, DynamicQubitArray)) or (
         isinstance(b, list) and len(b) > 0 and all(isinstance(qb, Qubit) for qb in b)
@@ -78,6 +79,7 @@ def _extract_bit(a_int, digit_index):
     True
     >>> bool(_extract_bit(0b1010, 0))
     False
+
     """
     # BigInteger (and other big-int wrappers) expose get_bit
     if hasattr(a_int, "get_bit"):
@@ -95,6 +97,7 @@ def _apply_x_bit(target, ctrl=None):
     ctrl : Qubit or None
         Optional control qubit. When provided, a CNOT is applied
         instead of a plain X.
+
     """
     if ctrl is not None:
         cx(ctrl, target)
@@ -121,6 +124,7 @@ def _apply_classical_carry_chain(gidney_anc, b_qbs, n, a_int, ctrl):
         Classical input representation used for bit extraction.
     ctrl : Qubit or None
         Optional outer control qubit.
+
     """
     # Bit-0 carry setup: if a[0] == 1, seed the carry into the first ancilla qubit:
     #   gidney_anc[0] ^= b[0] (or controlled by ctrl).
@@ -206,6 +210,7 @@ def _apply_quantum_carry_chain(gidney_anc, a_qbs, b_qbs, n, c_in_qb, c_out_qb, c
         Optional carry-out qubit.
     ctrl : Qubit or None
         Optional outer control qubit.
+
     """
     # Bit-0 carry setup (with optional carry-in).
     # The carry-in is folded into the first carry via a conjugation trick:
@@ -298,8 +303,7 @@ def _apply_quantum_carry_chain(gidney_anc, a_qbs, b_qbs, n, c_in_qb, c_out_qb, c
 
 @custom_control
 def gidney_adder(a, b, c_in=None, c_out=None, ctrl=None):
-    r"""
-    In-place Gidney adder performing ``b += a``.
+    r"""In-place Gidney adder performing ``b += a``.
 
     Based on `arXiv:1709.06648 <https://arxiv.org/abs/1709.06648>`_.  Works in
     both standard static and dynamic modes.
@@ -338,7 +342,6 @@ def gidney_adder(a, b, c_in=None, c_out=None, ctrl=None):
 
     Examples
     --------
-
     >>> from qrisp import QuantumFloat, gidney_adder
     >>> a = QuantumFloat(4)
     >>> b = QuantumFloat(4)
@@ -347,11 +350,8 @@ def gidney_adder(a, b, c_in=None, c_out=None, ctrl=None):
     >>> gidney_adder(a, b)
     >>> print(b)
     {9: 1.0}
-    """
-    from qrisp.alg_primitives.arithmetic.jasp_arithmetic.jasp_bigintiger import (
-        BigInteger,
-    )
 
+    """
     a_is_quantum = _validate_gidney_adder_inputs(a, b)
 
     # Normalise QuantumBool wrappers to raw qubits for downstream code.

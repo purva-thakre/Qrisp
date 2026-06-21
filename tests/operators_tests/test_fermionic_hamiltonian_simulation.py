@@ -1,5 +1,4 @@
-"""
-********************************************************************************
+"""********************************************************************************
 * Copyright (c) 2026 the Qrisp authors
 *
 * This program and the accompanying materials are made available under the
@@ -15,9 +14,6 @@
 * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 ********************************************************************************
 """
-
-import pytest
-import time
 
 from qrisp import *
 from qrisp.operators.fermionic import a, c
@@ -114,7 +110,7 @@ def test_fermionic_hamiltonian_simulation():
             for op3 in operators:
                 O += op1(0) * op2(1) * op3(2)
 
-                if O is 1:
+                if O == 1:
                     continue
 
                 from numpy.linalg import norm
