@@ -5,12 +5,27 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-[tool.isort]
-profile = "black"
-
 [tool.pylint. messages_control]
 disable = ["import-error"]
 
-[tool.black]
-line-length = 88
-target-version = ["py311", "py312", "py313"]
+[tool.ruff]
+exclude = ["__init__.py", "docs/", "*.ipynb"]
+line-length = 120
+target-version = "py312"
+force-exclude = true
+
+[tool.ruff.lint]
+select = [
+    "I",   # isort (import sorting)
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "D",   # pydocstyle (docstring conventions)
+    "PL",  # pylint
+    "F",   # pyflakes (logic errors)
+]
+ignore = [
+    "D203",  # inconsistent with D211 (no-blank-line-before-class)
+    "D213",  # inconsistent with D212 (multi-line-summary-first-line)
+    "D400",  # first-line-should-end-with-period
+    "D415",  # ends-in-punctuation
+]
